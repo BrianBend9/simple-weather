@@ -30,18 +30,14 @@ function getData(url, apikey) {
 function getWeatherData(city) {
   const apikey = '06e4d406550bf413c913e25583660216';
   const fiveDayForcastUrl = 'http://api.openweathermap.org/data/2.5/forecast/daily?q=' +
-  city + '&type=accurate&APPID=' + apikey + '&cnt=5';
+  city + '&type=accurate&units=metric&APPID=' + apikey + '&cnt=5';
   const currentForecastUrl = 'http://api.openweathermap.org/data/2.5/weather?q=' +
-  city + '&type=accurate&APPID=' + apikey;
+  city + '&type=accurate&units=metric&APPID=' + apikey;
   const urlEndpointArray = [currentForecastUrl, fiveDayForcastUrl];
 
-  urlEndpointArray.forEach(urlEndpoint =>
-    getData(urlEndpoint, apikey).then(function(response) {
-      console.log(response);
-    }, function(error) {
-      console.log(Error('Unable to retrieve data.'));
-    })
-  );
+  return Promise.all(urlEndpointArray.map(urlEndpoint =>
+    getData(urlEndpoint, apikey)
+  ));
 }
 
 export {getWeatherData, getData};
