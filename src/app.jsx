@@ -10,13 +10,13 @@ import ReactDOM from 'react-dom';
 import {Route, Router, IndexRoute, hashHistory} from 'react-router';
 import MainContainer from './containers/MainContainer';
 import Home from './components/Home';
-import ForecastComponent from './components/ForecastComponent';
+import Forecast from './components/Forecast';
 
 ReactDOM.render((
     <Router history={hashHistory}>
       <Route path='/' component={MainContainer} >
         <IndexRoute component={Home} />
-        <Route path='forecast/:city' component={ForecastComponent} />
+        <Route path='forecast/:city' component={Forecast} />
       </Route>
     </Router>
   ), document.getElementById('app')

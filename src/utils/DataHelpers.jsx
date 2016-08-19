@@ -37,7 +37,11 @@ function getWeatherData(city) {
 
   return Promise.all(urlEndpointArray.map(urlEndpoint =>
     getData(urlEndpoint, apikey)
-  ));
+  )).then(function(dataObjectArray) {
+    return dataObjectArray.map(function(dataObject) {
+      return JSON.parse(dataObject);
+    });
+  });
 }
 
 export {getWeatherData, getData};
