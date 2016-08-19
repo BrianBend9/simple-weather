@@ -1,0 +1,17 @@
+.menu {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+  height: 80px;
+  width: 100%;
+  background-color: red;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+}
+
+.menu__heading {
+  display: inline-block;
+  margin-left: .5em;
+}

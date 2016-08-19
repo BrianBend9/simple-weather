@@ -404,8 +404,111 @@ textarea {
   /* 2 */
 }
 
-.home {
-  background: orange;
+html,
+body,
+#app {
+  height: 100%;
+  width: 100%;
+}
+
+.header--home {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: column nowrap;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.header--home__h1 {
+  margin: 0px;
+}
+
+.mainSearch {
+  text-align: center;
+}
+
+.mainSearch__textinput {
+  width: 350px;
+  height: 35px;
+  border-radius: 4px;
+  margin-top: 20px;
+}
+
+.mainSearch__submitbtn--large {
+  height: 50px;
+  width: 150px;
+  margin-top: 20px;
+  border-radius: 5px;
+}
+
+.menu {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row nowrap;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  height: 80px;
+  width: 100%;
+  background-color: red;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+}
+
+.menu__heading {
+  display: inline-block;
+  margin-left: .5em;
+}
+
+.secondarySearch {
+  display: inline-block;
+  margin: 0px;
+  margin-right: .5em;
+}
+
+.secondarySearch__textinput {
+  width: 200px;
+  height: 35px;
+  border-radius: 4px;
+  margin-right: 8px;
+}
+
+.secondarySearch__submitbtn--large {
+  height: 42px;
+  width: 150px;
+  border-radius: 5px;
+}
+
+.container--main {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: column nowrap;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 100%;
+  height: 100%;
+  background-color: orange;
 }
 
 /*# sourceMappingURL=app.css.map*/

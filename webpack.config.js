@@ -47,6 +47,12 @@ module.exports = {
         test: /\.scss$/,
         include: __dirname + '/src/stylesheets',
         loader: (build) ? 'sass?outputStyle=compressed' : 'sass?outputStyle=expanded'
+      },
+
+      {
+        test: /\.(png|jpe?g|gif)$/,
+        include: __dirname + '/src/images',
+        loader: 'file-loader?name=images/[name].[ext]&context=/dist'
       }
     ]
   },

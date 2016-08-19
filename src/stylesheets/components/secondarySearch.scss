@@ -1,0 +1,19 @@
+.secondarySearch {
+  display: inline-block;
+  margin: 0px;
+  margin-right: .5em;
+}
+
+.secondarySearch__textinput {
+  width: 200px;
+  height: 35px;
+  border-radius: 4px;
+  margin-right: 8px;
+}
+
+.secondarySearch__submitbtn--large {
+  height: 42px;
+  width: 150px;
+  border-radius: 5px;
+  // border-style: none;
+}
