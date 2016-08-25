@@ -1,5 +1,7 @@
 /* eslint-disable handle-callback-err */
 /* eslint-disable consistent-return */
+import {getWeatherIcon} from './IconHelper';
+
 require('es6-promise').polyfill();
 
 function getData(url, apikey) {
@@ -45,6 +47,8 @@ function dayOfWeek(unixTimestamp) {
       return 'Thursday';
     case 5:
       return 'Friday';
+    case 6:
+      return 'Saturday';
   }
 }
 
@@ -58,7 +62,7 @@ function createDataObjectsArray(dataObject) {
   dataObjectsArray.push({'country': currentForecast.sys.country});
   dataObjectsArray.push({currentForecast: {
     description: currentForecast.weather[0].description,
-    icon: currentForecast.weather[0].icon,
+    icon: getWeatherIcon(currentForecast.weather[0].description),
     humidity: currentForecast.main.humidity,
     wind: currentForecast.wind.speed,
     temp: currentForecast.main.temp,
@@ -72,7 +76,7 @@ function createDataObjectsArray(dataObject) {
     obj[day]['fullDate'] = (new Date(fiveDayForecast[day].dt * 1000)).toDateString();
     obj[day]['dayOfWeek'] = dayOfWeek(fiveDayForecast[day].dt);
     obj[day]['description'] = fiveDayForecast[day].weather[0].description;
-    obj[day]['icon'] = fiveDayForecast[day].weather[0].icon;
+    obj[day]['icon'] = getWeatherIcon(fiveDayForecast[day].weather[0].description);
     obj[day]['humidity'] = fiveDayForecast[day].humidity;
     obj[day]['wind'] = fiveDayForecast[day].speed;
     obj[day]['temp'] = fiveDayForecast[day].temp.day;
@@ -80,6 +84,7 @@ function createDataObjectsArray(dataObject) {
     obj[day]['highTemp'] = fiveDayForecast[day].temp.max;
     dataObjectsArray.push(obj);
   }
+  console.log(dataObjectsArray);
   return dataObjectsArray;
 }
 

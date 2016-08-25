@@ -4,7 +4,7 @@
 import React from 'react';
 import {getWeatherData} from '../utils/DataHelpers';
 
-export default class ForecastComponent extends React.Component {
+export default class Forecast extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -34,20 +34,53 @@ export default class ForecastComponent extends React.Component {
         <div className='dataContainer--current'>
           <h1 className='cityHeader'>{this.state.city}</h1>
           <h2>{'Select a day'}</h2>
-          <div className="dataDisplay--large">{'div1'} </div>
+          <div className="dataDisplay--large">
+          {'Current Weather'}
+          </div>
         </div>
         <div className='dataContainer--5day'>
-          <div className="dataDisplay">{this.state[0].description}</div>
-          <div className="dataDisplay">{'div3'}</div>
-          <div className="dataDisplay">{'div4'}</div>
-          <div className="dataDisplay">{'div5'}</div>
-          <div className="dataDisplay">{'div6'}</div>
+
+          <div className="dataDisplay">
+            {this.state[0].dayOfWeek}<br />
+            {this.state[0].description}<br />
+            {this.state[0].lowTemp}<br />
+            {this.state[0].highTemp}<br />
+            <img src={this.state[0].icon} />
+          </div>
+
+          <div className="dataDisplay">
+            {this.state[1].dayOfWeek}<br />
+            {this.state[1].description}<br />
+            {this.state[1].lowTemp}<br />
+            {this.state[1].highTemp}
+          </div>
+
+          <div className="dataDisplay">
+            {this.state[2].dayOfWeek}<br />
+            {this.state[2].description}<br />
+            {this.state[2].lowTemp}<br />
+            {this.state[2].highTemp}
+          </div>
+
+          <div className="dataDisplay">
+            {this.state[3].dayOfWeek}<br />
+            {this.state[3].description}<br />
+            {this.state[3].lowTemp}<br />
+            {this.state[3].highTemp}
+          </div>
+
+          <div className="dataDisplay">
+            {this.state[4].dayOfWeek}<br />
+            {this.state[4].description}<br />
+            {this.state[4].lowTemp}<br />
+            {this.state[4].highTemp}
+          </div>
         </div>
       </div>
     );
   }
 }
 
-ForecastComponent.contextTypes = {
+Forecast.contextTypes = {
   router: React.PropTypes.object.isRequired
 };

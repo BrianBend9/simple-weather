@@ -48,7 +48,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(/*! ./src/app.jsx */1);
-	module.exports = __webpack_require__(/*! ./src/stylesheets/main.scss */248);
+	module.exports = __webpack_require__(/*! ./src/stylesheets/main.scss */252);
 
 
 /***/ },
@@ -78,9 +78,13 @@
 	
 	var _Home2 = _interopRequireDefault(_Home);
 	
+	var _Forecast = __webpack_require__(/*! ./components/Forecast */ 244);
+	
+	var _Forecast2 = _interopRequireDefault(_Forecast);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	__webpack_require__(/*! es6-promise */ 244).polyfill(); /* eslint-disable no-unused-vars */
+	/* eslint-disable no-unused-vars */
 	/* eslint-disable react/jsx-indent */
 	/* eslint-disable react/prefer-stateless-function */
 	/* eslint-disable react/jsx-indent-props */
@@ -93,7 +97,8 @@
 	  _react2.default.createElement(
 	    _reactRouter.Route,
 	    { path: '/', component: _MainContainer2.default },
-	    _react2.default.createElement(_reactRouter.IndexRoute, { component: _Home2.default })
+	    _react2.default.createElement(_reactRouter.IndexRoute, { component: _Home2.default }),
+	    _react2.default.createElement(_reactRouter.Route, { path: 'forecast/:city', component: _Forecast2.default })
 	  )
 	), document.getElementById('app'));
 
@@ -28000,18 +28005,17 @@
 	
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint-disable react/jsx-sort-props */
-	/* eslint-disable react/jsx-indent-props */
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint-disable react/jsx-indent-props */
 	/* eslint-disable react/no-set-state */
 	
 	
 	var MainSearch = function (_React$Component) {
 	  _inherits(MainSearch, _React$Component);
 	
-	  function MainSearch(props) {
+	  function MainSearch() {
 	    _classCallCheck(this, MainSearch);
 	
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(MainSearch).call(this, props));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(MainSearch).call(this));
 	
 	    _this.state = {
 	      city: ''
@@ -28024,7 +28028,6 @@
 	  _createClass(MainSearch, [{
 	    key: 'handleOnUpdateCity',
 	    value: function handleOnUpdateCity(event) {
-	      console.log(event.target.value);
 	      this.setState({
 	        city: event.target.value
 	      });
@@ -28032,13 +28035,13 @@
 	  }, {
 	    key: 'handleOnSubmitCity',
 	    value: function handleOnSubmitCity(event) {
-	      var City = this.state.City;
+	      var city = this.state.city;
 	
-	      console.log('submit func:', City);
 	      event.preventDefault();
 	      this.setState({
 	        city: ''
 	      });
+	      this.context.router.push('/forecast/' + city);
 	    }
 	  }, {
 	    key: 'render',
@@ -28050,17 +28053,17 @@
 	          onSubmit: this.handleOnSubmitCity
 	        },
 	        _react2.default.createElement('input', {
-	          type: 'text',
 	          className: 'mainSearch__textinput',
 	          name: 'city',
 	          onChange: this.handleOnUpdateCity,
 	          placeholder: 'i.e. Toronto, Ontario',
+	          type: 'text',
 	          value: this.state.city
 	        }),
 	        _react2.default.createElement('br', null),
 	        _react2.default.createElement('input', {
-	          type: 'submit',
 	          className: 'mainSearch__submitbtn--large',
+	          type: 'submit',
 	          value: 'Get Weather'
 	        })
 	      );
@@ -28071,10 +28074,401 @@
 	}(_react2.default.Component);
 	
 	exports.default = MainSearch;
+	
+	
+	MainSearch.contextTypes = {
+	  router: _react2.default.PropTypes.object.isRequired
+	};
 	module.exports = exports['default'];
 
 /***/ },
 /* 244 */
+/*!*************************************!*\
+  !*** ./src/components/Forecast.jsx ***!
+  \*************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _DataHelpers = __webpack_require__(/*! ../utils/DataHelpers */ 245);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint-disable no-undef */
+	/* eslint-disable react/no-set-state */
+	/* eslint-disable react/prop-types*/
+	
+	
+	var ForecastComponent = function (_React$Component) {
+	  _inherits(ForecastComponent, _React$Component);
+	
+	  function ForecastComponent(props) {
+	    _classCallCheck(this, ForecastComponent);
+	
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ForecastComponent).call(this, props));
+	
+	    _this.state = {
+	      city: '',
+	      country: '',
+	      currentForecast: '',
+	      0: '',
+	      1: '',
+	      2: '',
+	      3: '',
+	      4: ''
+	    };
+	    return _this;
+	  }
+	
+	  _createClass(ForecastComponent, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this2 = this;
+	
+	      var currentPath = this.props.location.pathname;
+	      var city = currentPath.slice(currentPath.match(/\/\w*\//)[0].length);
+	
+	      (0, _DataHelpers.getWeatherData)(city).then(function (dataObjectsArray) {
+	        dataObjectsArray.forEach(function (dataObject) {
+	          return _this2.setState(dataObject);
+	        });
+	      });
+	      console.log(this.state);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'dataContainer' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'dataContainer--current' },
+	          _react2.default.createElement(
+	            'h1',
+	            { className: 'cityHeader' },
+	            this.state.city
+	          ),
+	          _react2.default.createElement(
+	            'h2',
+	            null,
+	            'Select a day'
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'dataDisplay--large' },
+	            'Current Weather'
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'dataContainer--5day' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'dataDisplay' },
+	            this.state[0].dayOfWeek,
+	            _react2.default.createElement('br', null),
+	            this.state[0].description,
+	            _react2.default.createElement('br', null),
+	            this.state[0].lowTemp,
+	            _react2.default.createElement('br', null),
+	            this.state[0].highTemp,
+	            _react2.default.createElement('br', null),
+	            _react2.default.createElement('img', { src: __webpack_require__(/*! ../images/svg/wetv2.svg */ 251) })
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'dataDisplay' },
+	            this.state[1].dayOfWeek,
+	            _react2.default.createElement('br', null),
+	            this.state[1].description,
+	            _react2.default.createElement('br', null),
+	            this.state[1].lowTemp,
+	            _react2.default.createElement('br', null),
+	            this.state[1].highTemp
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'dataDisplay' },
+	            this.state[2].dayOfWeek,
+	            _react2.default.createElement('br', null),
+	            this.state[2].description,
+	            _react2.default.createElement('br', null),
+	            this.state[2].lowTemp,
+	            _react2.default.createElement('br', null),
+	            this.state[2].highTemp
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'dataDisplay' },
+	            this.state[3].dayOfWeek,
+	            _react2.default.createElement('br', null),
+	            this.state[3].description,
+	            _react2.default.createElement('br', null),
+	            this.state[3].lowTemp,
+	            _react2.default.createElement('br', null),
+	            this.state[3].highTemp
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'dataDisplay' },
+	            this.state[4].dayOfWeek,
+	            _react2.default.createElement('br', null),
+	            this.state[4].description,
+	            _react2.default.createElement('br', null),
+	            this.state[4].lowTemp,
+	            _react2.default.createElement('br', null),
+	            this.state[4].highTemp
+	          )
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return ForecastComponent;
+	}(_react2.default.Component);
+	
+	exports.default = ForecastComponent;
+	
+	
+	ForecastComponent.contextTypes = {
+	  router: _react2.default.PropTypes.object.isRequired
+	};
+	module.exports = exports['default'];
+
+/***/ },
+/* 245 */
+/*!***********************************!*\
+  !*** ./src/utils/DataHelpers.jsx ***!
+  \***********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.getData = exports.getWeatherData = undefined;
+	
+	var _IconHelper = __webpack_require__(/*! ./IconHelper */ 246);
+	
+	__webpack_require__(/*! es6-promise */ 247).polyfill(); /* eslint-disable handle-callback-err */
+	/* eslint-disable consistent-return */
+	
+	
+	function getData(url, apikey) {
+	  return new Promise(function (resolve, reject) {
+	    var xhr = new XMLHttpRequest();
+	
+	    if (apikey !== undefined) {
+	      xhr.open('GET', url, false);
+	    } else {
+	      xhr.open('GET', url + apikey, false);
+	    }
+	
+	    xhr.onload = function () {
+	      if (xhr.status === 200) {
+	        resolve(xhr.response);
+	      } else {
+	        reject(Error(xhr.statusText));
+	      }
+	    };
+	
+	    xhr.onerror = function (e) {
+	      reject(Error('An error occured during the request'));
+	    };
+	
+	    xhr.send();
+	  });
+	}
+	
+	function dayOfWeek(unixTimestamp) {
+	  var date = new Date(unixTimestamp * 1000);
+	  var day = date.getUTCDay();
+	
+	  switch (day) {
+	    case 0:
+	      return 'Sunday';
+	    case 1:
+	      return 'Monday';
+	    case 2:
+	      return 'Tuesday';
+	    case 3:
+	      return 'Wednesday';
+	    case 4:
+	      return 'Thursday';
+	    case 5:
+	      return 'Friday';
+	    case 6:
+	      return 'Saturday';
+	  }
+	}
+	
+	function createDataObjectsArray(dataObject) {
+	  var currentForecast = dataObject[0];
+	  var fiveDayForecast = dataObject[1].list;
+	  var dataObjectsArray = [];
+	  var day, obj;
+	
+	  dataObjectsArray.push({ 'city': currentForecast.name });
+	  dataObjectsArray.push({ 'country': currentForecast.sys.country });
+	  dataObjectsArray.push({ currentForecast: {
+	      description: currentForecast.weather[0].description,
+	      icon: (0, _IconHelper.getWeatherIcon)(currentForecast.weather[0].description),
+	      humidity: currentForecast.main.humidity,
+	      wind: currentForecast.wind.speed,
+	      temp: currentForecast.main.temp,
+	      lowTemp: currentForecast.main.temp_min,
+	      highTemp: currentForecast.main.temp_max
+	    } });
+	
+	  for (day in fiveDayForecast) {
+	    obj = {};
+	    obj[day] = {};
+	    obj[day]['fullDate'] = new Date(fiveDayForecast[day].dt * 1000).toDateString();
+	    obj[day]['dayOfWeek'] = dayOfWeek(fiveDayForecast[day].dt);
+	    obj[day]['description'] = fiveDayForecast[day].weather[0].description;
+	    obj[day]['icon'] = (0, _IconHelper.getWeatherIcon)(fiveDayForecast[day].weather[0].description);
+	    obj[day]['humidity'] = fiveDayForecast[day].humidity;
+	    obj[day]['wind'] = fiveDayForecast[day].speed;
+	    obj[day]['temp'] = fiveDayForecast[day].temp.day;
+	    obj[day]['lowTemp'] = fiveDayForecast[day].temp.min;
+	    obj[day]['highTemp'] = fiveDayForecast[day].temp.max;
+	    dataObjectsArray.push(obj);
+	  }
+	  console.log(dataObjectsArray);
+	  return dataObjectsArray;
+	}
+	
+	function getWeatherData(city) {
+	  var apikey = '06e4d406550bf413c913e25583660216';
+	  var fiveDayForcastUrl = 'http://api.openweathermap.org/data/2.5/forecast/daily?q=' + city + '&type=accurate&units=metric&APPID=' + apikey + '&cnt=5';
+	  var currentForecastUrl = 'http://api.openweathermap.org/data/2.5/weather?q=' + city + '&type=accurate&units=metric&APPID=' + apikey;
+	  var urlEndpointArray = [currentForecastUrl, fiveDayForcastUrl];
+	
+	  return Promise.all(urlEndpointArray.map(function (urlEndpoint) {
+	    return getData(urlEndpoint, apikey);
+	  })).then(function (dataObjectArray) {
+	    return dataObjectArray.map(function (dataObject) {
+	      return JSON.parse(dataObject);
+	    });
+	  }).then(function (dataObject) {
+	    return createDataObjectsArray(dataObject);
+	  });
+	}
+	
+	exports.getWeatherData = getWeatherData;
+	exports.getData = getData;
+
+/***/ },
+/* 246 */
+/*!**********************************!*\
+  !*** ./src/utils/IconHelper.jsx ***!
+  \**********************************/
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	/* eslint-disable indent */
+	var weatherIcons = {
+	  'broken clouds': 'clouds',
+	  'calm': 'cloud',
+	  'clear sky': 'sun',
+	  'cold': 'thermometer-25',
+	  'drizzle': 'cloud-drizzle',
+	  'drizzle rain': 'cloud-drizzle',
+	  'dust': 'cloud-fog',
+	  'extreme rain': 'cloud-rain',
+	  'few clouds': 'cloud-sun',
+	  'fog': 'cloud-fog',
+	  'freezing rain': 'cloud-rain',
+	  'fresh breeze': 'cloud-wind-2',
+	  'gale': 'cloud-wind',
+	  'gentle breeze': 'cloud-wind-2',
+	  'hail': 'cloud-hail',
+	  'haze': 'cloud-fog',
+	  'heavy intensity drizzle': 'cloud-drizzle',
+	  'heavy intensity drizzle rain': 'cloud-rain-2',
+	  'heavy intensity shower rain': 'cloud-rain',
+	  'heavy intensity rain': 'cloud-rain',
+	  'heavy shower rain and drizzle': 'cloud-rain-2',
+	  'heavy snow': 'cloud-snow',
+	  'heavy shower snow': 'cloud-snow',
+	  'heavy thunderstorm': 'cloud-lightning',
+	  'high wind, near gale': 'cloud-wind',
+	  'hot': 'thermometer-100',
+	  'hurricane': 'cloud-rain-sun',
+	  'light breeze': 'cloud-wind-2',
+	  'light shower snow': 'cloud-snow',
+	  'light intensity drizzle': 'cloud-drizzle',
+	  'light intensity drizzle rain': 'cloud-drizzle',
+	  'light intensity shower rain': 'cloud-rain',
+	  'light snow': 'cloud-snow',
+	  'light rain': 'cloud-rain',
+	  'light rain and snow': 'cloud-snow',
+	  'light thunderstorm': 'cloud-lightning',
+	  'mist': 'cloud-drizzle',
+	  'moderate rain': 'cloud-rain',
+	  'moderate breeze': 'cloud-wind-2',
+	  'overcast clouds': 'clouds',
+	  'ragged shower rain': 'cloud-rain',
+	  'ragged thunderstorm': 'cloud-rain-lightning',
+	  'rain and snow': 'cloud-snow',
+	  'sand': 'cloud-fog',
+	  'sand, dust whirls': 'cloud-wind',
+	  'scattered clouds': 'clouds',
+	  'severe gale': 'cloud-wind',
+	  'shower drizzle': 'cloud-rain-2',
+	  'shower rain': 'cloud-rain',
+	  'shower rain and drizzle': 'cloud-rain-2',
+	  'shower sleet': 'cloud-snow',
+	  'shower snow': 'cloud-snow',
+	  'sleet': 'cloud-snow',
+	  'smoke': 'cloud-fog',
+	  'snow': 'cloud-snow',
+	  'squalls': 'wind',
+	  'storm': 'cloud-rain',
+	  'strong breeze': 'cloud-wind',
+	  'thunderstorm with light rain': 'cloud-drizzle-lightning-sun',
+	  'thunderstorm with rain': 'cloud-rain-lightning',
+	  'thunderstorm with heavy rain': 'cloud-rain-lightning',
+	  'thunderstorm': 'cloud-lightning',
+	  'thunderstorm with light drizzle': 'cloud-drizzle-lightning',
+	  'thunderstorm with drizzle': 'cloud-drizzle-lightning',
+	  'thunderstorm with heavy drizzle': 'cloud-drizzle-lightning',
+	  'tornado': 'tornado',
+	  'tropical storm': 'cloud-rain-sun',
+	  'very heavy rain': 'cloud-rain',
+	  'violent storm': 'cloud-rain',
+	  'volcanic ash': 'cloud-fog',
+	  'windy': 'cloud-wind'
+	};
+	
+	function getWeatherIcon(weatherDescription) {
+	  return weatherIcons[weatherDescription];
+	};
+	
+	exports.getWeatherIcon = getWeatherIcon;
+
+/***/ },
+/* 247 */
 /*!*******************************************!*\
   !*** ./~/es6-promise/dist/es6-promise.js ***!
   \*******************************************/
@@ -28210,7 +28604,7 @@
 	    function lib$es6$promise$asap$$attemptVertx() {
 	      try {
 	        var r = require;
-	        var vertx = __webpack_require__(/*! vertx */ 246);
+	        var vertx = __webpack_require__(/*! vertx */ 249);
 	        lib$es6$promise$asap$$vertxNext = vertx.runOnLoop || vertx.runOnContext;
 	        return lib$es6$promise$asap$$useVertxTimer();
 	      } catch(e) {
@@ -29028,7 +29422,7 @@
 	    };
 	
 	    /* global define:true module:true window: true */
-	    if ("function" === 'function' && __webpack_require__(/*! !webpack amd define */ 247)['amd']) {
+	    if ("function" === 'function' && __webpack_require__(/*! !webpack amd define */ 250)['amd']) {
 	      !(__WEBPACK_AMD_DEFINE_RESULT__ = function() { return lib$es6$promise$umd$$ES6Promise; }.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	    } else if (typeof module !== 'undefined' && module['exports']) {
 	      module['exports'] = lib$es6$promise$umd$$ES6Promise;
@@ -29040,10 +29434,10 @@
 	}).call(this);
 	
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 31), (function() { return this; }()), __webpack_require__(/*! ./../../webpack/buildin/module.js */ 245)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 31), (function() { return this; }()), __webpack_require__(/*! ./../../webpack/buildin/module.js */ 248)(module)))
 
 /***/ },
-/* 245 */
+/* 248 */
 /*!***********************************!*\
   !*** (webpack)/buildin/module.js ***!
   \***********************************/
@@ -29062,7 +29456,7 @@
 
 
 /***/ },
-/* 246 */
+/* 249 */
 /*!***********************!*\
   !*** vertx (ignored) ***!
   \***********************/
@@ -29071,7 +29465,7 @@
 	/* (ignored) */
 
 /***/ },
-/* 247 */
+/* 250 */
 /*!***************************************!*\
   !*** (webpack)/buildin/amd-define.js ***!
   \***************************************/
@@ -29081,7 +29475,16 @@
 
 
 /***/ },
-/* 248 */
+/* 251 */
+/*!**********************************!*\
+  !*** ./src/images/svg/wetv2.svg ***!
+  \**********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "499f63fcceaa0b3cbdd436199c6e173b.svg";
+
+/***/ },
+/* 252 */
 /*!***********************************!*\
   !*** ./src/stylesheets/main.scss ***!
   \***********************************/
