@@ -1,19 +1,42 @@
 .secondarySearch {
   display: inline-block;
+  width: 100%;
   margin: 0px;
-  margin-right: .5em;
 }
 
 .secondarySearch__textinput {
-  width: 200px;
-  height: 35px;
+  width: 250px;
+  height: 30px;
   border-radius: 4px;
-  margin-right: 8px;
+  right: -5px;
+  position: relative;
+  z-index: 100;
+  transition: width ease-in;
 }
 
-.secondarySearch__submitbtn--large {
-  height: 42px;
-  width: 150px;
+.secondarySearch__submitbtn {
+  height: 35px;
+  width: 110px;
   border-radius: 5px;
-  // border-style: none;
+  margin-right: 20px;
+  position: relative;
+  z-index: 1000;
+}
+
+@media all and (max-width: 450px) and (orientation: portrait) {
+  .secondarySearch__textinput {
+    right: 11px;
+    width: 0%;
+  }
+
+  .secondarySearch__textinput--active {
+    width: 60%;
+  }
+
+  .secondarySearch__submitbtn {
+    right: 17px;
+    font-size: 13px;
+    width: 88px;
+    margin: 0px;
+  }
 }

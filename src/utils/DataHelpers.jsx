@@ -61,30 +61,31 @@ function createDataObjectsArray(dataObject) {
   dataObjectsArray.push({'city': currentForecast.name});
   dataObjectsArray.push({'country': currentForecast.sys.country});
   dataObjectsArray.push({currentForecast: {
+    clouds: currentForecast.clouds.all,
     description: currentForecast.weather[0].description,
     icon: getWeatherIcon(currentForecast.weather[0].description),
+    highTemp: Math.floor(currentForecast.main.temp_max),
     humidity: currentForecast.main.humidity,
-    wind: currentForecast.wind.speed,
-    temp: currentForecast.main.temp,
-    lowTemp: currentForecast.main.temp_min,
-    highTemp: currentForecast.main.temp_max
+    lowTemp: Math.floor(currentForecast.main.temp_min),
+    temp: Math.floor(currentForecast.main.temp),
+    windDirection: currentForecast.wind.deg,
+    windSpeed: currentForecast.wind.speed
   }});
 
   for (day in fiveDayForecast) {
     obj = {};
     obj[day] = {};
-    obj[day]['fullDate'] = (new Date(fiveDayForecast[day].dt * 1000)).toDateString();
     obj[day]['dayOfWeek'] = dayOfWeek(fiveDayForecast[day].dt);
     obj[day]['description'] = fiveDayForecast[day].weather[0].description;
-    obj[day]['icon'] = getWeatherIcon(fiveDayForecast[day].weather[0].description);
+    obj[day]['fullDate'] = (new Date(fiveDayForecast[day].dt * 1000)).toDateString();
+    obj[day]['highTemp'] = Math.floor(fiveDayForecast[day].temp.max);
     obj[day]['humidity'] = fiveDayForecast[day].humidity;
+    obj[day]['icon'] = getWeatherIcon(fiveDayForecast[day].weather[0].description);
+    obj[day]['lowTemp'] = Math.floor(fiveDayForecast[day].temp.min);
+    obj[day]['temp'] = Math.floor(fiveDayForecast[day].temp.day);
     obj[day]['wind'] = fiveDayForecast[day].speed;
-    obj[day]['temp'] = fiveDayForecast[day].temp.day;
-    obj[day]['lowTemp'] = fiveDayForecast[day].temp.min;
-    obj[day]['highTemp'] = fiveDayForecast[day].temp.max;
     dataObjectsArray.push(obj);
   }
-  console.log(dataObjectsArray);
   return dataObjectsArray;
 }
 

@@ -5,19 +5,23 @@ import React from 'react';
 export default class SecondarySearch extends React.Component {
   render() {
     return (
-      <form className="secondarySearch">
+      <form className='secondarySearch'>
         <input
-          type="text"
-          className="secondarySearch__textinput"
-          name="city"
-          placeholder="i.e. Toronto, Ontario"
+          type='text'
+          className={this.props.searchInputClass}
+          name='city'
+          placeholder='Toronto, Canada'
         />
         <input
-          type="submit"
-          className="secondarySearch__submitbtn--large"
-          value="Get Weather"
+          type='submit'
+          className='secondarySearch__submitbtn'
+          value='Get Weather'
         />
       </form>
     );
   }
 }
+
+SecondarySearch.propTypes = {
+  searchInputClass: React.PropTypes.string.isRequired
+};

@@ -1,0 +1,121 @@
+.envContainer--current__wrapper {
+  width: 65%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  font-size: 18px;
+}
+
+.envContainer--current {
+  list-style-type: none;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  padding-top: 25px;
+  width: 60%;
+}
+
+.envContainer--current__reading {
+  width: 50%;
+  margin-bottom: 10px;
+}
+
+.envContainer--current__header {
+  margin-bottom: 5px;
+  margin-top: 0px;
+}
+
+.envContainer--current {
+  width: 75%;
+  padding: 0px;
+  margin: 0px;
+}
+
+.tempContainer--current__reading {
+  width: 40%;
+  height: inherit;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.tempContainer--current__readingUnit {
+  font-size: 40px;
+  display: inline;
+}
+
+.tempContainer--current__reading--large {
+  font-size: 120px;
+  margin: 0px;
+  text-align: left;
+}
+
+.tempContainer--current {
+  width: 53%;
+  display: flex;
+  flex-flow: row nowrap;
+  list-style-type: none;
+}
+
+@media all and (max-width: 1100px) {
+
+  .tempContainer--current__reading--large {
+    font-size: 94px;
+  }
+
+  .envContainer--current__reading {
+    font-size: 16px;
+    padding-right: 5px;
+    margin-bottom: 0px;
+  }
+}
+
+@media all and (max-width: 1100px) {
+
+  .tempContainer--current__reading--large {
+    font-size: 94px;
+  }
+
+  .envContainer--current__reading {
+    font-size: 16px;
+    padding-right: 5px;
+  }
+}
+
+@media all and (max-width: 975px) {
+
+  .envContainer--current {
+    flex-flow: column nowrap;
+  }
+
+  .envContainer--current__reading {
+    width: 100%;
+    margin-bottom: 5px;
+  }
+}
+
+@media all and (max-width: 750px) {
+  .envContainer--current__wrapper {
+    display: none;
+  }
+
+  .tempContainer--current {
+    width: 30%;
+  }
+
+  .tempContainer--current__reading {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .tempContainer--current__reading--large {
+    font-size: 50px;
+  }
+
+  .tempContainer--current__readingUnit {
+    font-size: 25px;
+  }
+}

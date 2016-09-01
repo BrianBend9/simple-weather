@@ -38,7 +38,7 @@ export default class MainSearch extends React.Component {
           className="mainSearch__textinput"
           name="city"
           onChange={this.handleOnUpdateCity}
-          placeholder="i.e. Toronto, Ontario"
+          placeholder="Toronto, Canada"
           type="text"
           value={this.state.city}
         /><br />

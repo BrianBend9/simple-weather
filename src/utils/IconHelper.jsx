@@ -77,7 +77,6 @@ const weatherIcons = {
 function getWeatherIcon(weatherDescription) {
   const svgFileName = weatherIcons[weatherDescription];
 
-  console.log(weatherDescription);
   return require('../images/svg/' + svgFileName + '.svg');
 };
 

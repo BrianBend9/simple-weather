@@ -9,9 +9,57 @@
   position: fixed;
   top: 0px;
   left: 0px;
+  z-index: 1000;
 }
 
 .menu__heading {
   display: inline-block;
-  margin-left: .5em;
+  margin-left: 20px;
+  font-size: 35px;
+  position: relative;
+}
+
+.menu__searchWrapper {
+  height: 100%;
+  width: 60%;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  text-align: right;
+  justify-content: flex-end;
+}
+
+.menu__searchbtn {
+  width: 35px;
+  height: 35px;
+  display: none;
+}
+
+@media all and (max-width: 750px) {
+  .menu__heading {
+    font-size: 22px;
+    width: 20%;
+  }
+
+  .menu__searchWrapper {
+    width: 100%;
+  }
+}
+
+@media all and (max-width: 750px) and (orientation: portrait) {
+  .menu__searchbtn {
+    display: inline-block;
+    position: relative;
+    right: 10px;
+  }
+
+  .menu__heading--active {
+    display: none;
+  }
+}
+
+@media all and (max-width: 750px) and (orientation: landscape) {
+  .menu {
+    height: 48px;
+  }
 }

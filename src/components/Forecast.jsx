@@ -1,8 +1,13 @@
 /* eslint-disable no-undef */
 /* eslint-disable react/no-set-state */
 /* eslint-disable react/prop-types*/
+/* eslint-disable react/jsx-indent-props*/
 import React from 'react';
 import {getWeatherData} from '../utils/DataHelpers';
+import Temperatures from './forecast/Temperatures';
+import DailyForecast from './forecast/DailyForecast';
+import CurrentForecast from './forecast/CurrentForecast';
+import CurrentTemperature from './forecast/CurrentTemperature';
 
 export default class Forecast extends React.Component {
   constructor(props) {
@@ -32,48 +37,82 @@ export default class Forecast extends React.Component {
     return (
       <div className='dataContainer'>
         <div className='dataContainer--current'>
-          <h1 className='cityHeader'>{this.state.city}</h1>
-          <h2>{'Select a day'}</h2>
+          <h1 className='cityHeader'>{this.state.city}{', ' + this.state.country}</h1>
+
           <div className="dataDisplay--large">
-          {'Current Weather'}
+            <CurrentForecast
+              description={'thunderstorm with light drizzle'}
+              icon={this.state.currentForecast.icon}
+            />
+            <CurrentTemperature
+              clouds={this.state.currentForecast.clouds}
+              humidity={this.state.currentForecast.humidity}
+              temp={this.state.currentForecast.temp}
+              windDirection={this.state.currentForecast.windDirection}
+              windSpeed={this.state.currentForecast.windSpeed}
+            />
           </div>
         </div>
         <div className='dataContainer--5day'>
 
           <div className="dataDisplay">
-            {this.state[0].dayOfWeek}<br />
-            {this.state[0].description}<br />
-            {this.state[0].lowTemp}<br />
-            {this.state[0].highTemp}<br />
-            <img src={this.state[0].icon} />
+            <DailyForecast
+              dayOfWeek={this.state[0].dayOfWeek}
+              description={'thunderstorm with light drizzle'}
+              icon={this.state[0].icon}
+            />
+            <Temperatures
+              high={this.state[0].highTemp}
+              low={this.state[0].lowTemp}
+            />
           </div>
 
           <div className="dataDisplay">
-            {this.state[1].dayOfWeek}<br />
-            {this.state[1].description}<br />
-            {this.state[1].lowTemp}<br />
-            {this.state[1].highTemp}
+            <DailyForecast
+              dayOfWeek={this.state[1].dayOfWeek}
+              description={this.state[1].description}
+              icon={this.state[1].icon}
+            />
+            <Temperatures
+              high={this.state[1].highTemp}
+              low={this.state[1].lowTemp}
+            />
           </div>
 
           <div className="dataDisplay">
-            {this.state[2].dayOfWeek}<br />
-            {this.state[2].description}<br />
-            {this.state[2].lowTemp}<br />
-            {this.state[2].highTemp}
+            <DailyForecast
+              dayOfWeek={this.state[2].dayOfWeek}
+              description={this.state[2].description}
+              icon={this.state[2].icon}
+            />
+            <Temperatures
+              high={this.state[2].highTemp}
+              low={this.state[2].lowTemp}
+            />
           </div>
 
           <div className="dataDisplay">
-            {this.state[3].dayOfWeek}<br />
-            {this.state[3].description}<br />
-            {this.state[3].lowTemp}<br />
-            {this.state[3].highTemp}
+            <DailyForecast
+              dayOfWeek={this.state[3].dayOfWeek}
+              description={this.state[3].description}
+              icon={this.state[3].icon}
+            />
+            <Temperatures
+              high={this.state[3].highTemp}
+              low={this.state[3].lowTemp}
+            />
           </div>
 
           <div className="dataDisplay">
-            {this.state[4].dayOfWeek}<br />
-            {this.state[4].description}<br />
-            {this.state[4].lowTemp}<br />
-            {this.state[4].highTemp}
+            <DailyForecast
+              dayOfWeek={this.state[4].dayOfWeek}
+              description={this.state[4].description}
+              icon={this.state[4].icon}
+            />
+            <Temperatures
+              high={this.state[4].highTemp}
+              low={this.state[4].lowTemp}
+            />
           </div>
         </div>
       </div>

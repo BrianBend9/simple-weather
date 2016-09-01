@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "server": "./node_modules/.bin/webpack-dev-server --inline --hot --content-base /dist",
+    "start": "./node_modules/.bin/webpack-dev-server --inline --hot --content-base /dist",
     "dev": "webpack -d",
     "prod": "NODE_ENV=production webpack -p"
   },
@@ -37,6 +37,7 @@
     "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
+    "classnames": "^2.2.5",
     "react": "^15.3.0",
     "react-dom": "^15.3.0",
     "react-router": "^2.6.1"
