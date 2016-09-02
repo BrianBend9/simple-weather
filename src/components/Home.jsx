@@ -7,7 +7,7 @@ export default class Home extends React.Component {
   render() {
     return (
       <div className="header--home">
-        <h1 className="header--home__h1">{'Enter a City and State or Province...'}</h1>
+        <h1 className="header--home__h1">{'Enter a City and Country.'}</h1>
         <MainSearch />
       </div>
     );
