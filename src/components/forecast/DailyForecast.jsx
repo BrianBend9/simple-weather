@@ -7,7 +7,7 @@ export default class DailyForecast extends React.Component {
       <div className='dailyForecastContainer'>
         <div className='briefContainer--daily'>
           <h2 className='briefContainer--daily__dayHeader'>{this.props.dayOfWeek}</h2>
-          <h4 className='briefContainer--daily__descHeader'>{this.props.description}</h4>
+          <p className='briefContainer--daily__descHeader'>{this.props.description}</p>
         </div>
         <div className='iconContainer--daily'>
           <img

@@ -12,9 +12,10 @@
 .tempContainer__reading {
   display: flex;
   flex-flow: column;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   width: 50%;
+  padding-bottom: 4px;
 }
 
 // .tempContainer__reading--high {
@@ -37,6 +38,10 @@
     height: 100%;
     padding-right: 5px;
     font-size: 15px;
+  }
+
+  .tempContainer__reading {
+    justify-content: center;
   }
 }
 

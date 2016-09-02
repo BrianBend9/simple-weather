@@ -7,7 +7,7 @@ export default class CurrentForecast extends React.Component {
       <div className='currentForecastContainer'>
         <div className='briefContainer--current'>
           <h1 className='briefContainer--current__header'>{'Current Weather'}</h1>
-          <h2 className='briefContainer--current__descHeader'>{this.props.description}</h2>
+          <p className='briefContainer--current__descHeader'>{this.props.description}</p>
         </div>
         <div className='iconContainer--current'>
           <img

@@ -1,3 +1,19 @@
+$heading-font: 'Fjalla One', sans-serif;
+$base-font: 'Droid Sans', sans-serif;
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: $heading-font;
+}
+
+p,
+body,
+span {
+  font-family: $base-font;
+}
+
 /* fjalla-one-regular - latin */
 @font-face {
   font-family: 'Fjalla One';
