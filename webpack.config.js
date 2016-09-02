@@ -56,6 +56,12 @@ module.exports = {
           'file?hash=sha512&digest=hex&name=/images/[name]-[hash].[ext]',
           'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
         ]
+      },
+
+      {
+        test: /\.(eot|svg|ttf|woff|woff2)$/,
+        include: __dirname + '/src/stylesheets/fonts',
+        loader: 'file?name=/fonts/[name].[ext]'
       }
     ]
   },
