@@ -41,7 +41,7 @@ export default class Forecast extends React.Component {
 
           <div className="dataDisplay--large">
             <CurrentForecast
-              description={'thunderstorm with light drizzle'}
+              description={this.state.currentForecast.description}
               icon={this.state.currentForecast.icon}
             />
             <CurrentTemperature
@@ -58,7 +58,7 @@ export default class Forecast extends React.Component {
           <div className="dataDisplay">
             <DailyForecast
               dayOfWeek={this.state[0].dayOfWeek}
-              description={'thunderstorm with light drizzle'}
+              description={this.state[0].description}
               icon={this.state[0].icon}
             />
             <Temperatures
