@@ -2,7 +2,7 @@
 /* eslint-disable react/no-set-state */
 import React from 'react';
 
-export default class MainSearch extends React.Component {
+export default class Search extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -31,27 +31,33 @@ export default class MainSearch extends React.Component {
   render() {
     return (
       <form
-        className="mainSearch"
+        className={this.props.formClass}
         onSubmit={this.handleOnSubmitCity}
       >
         <input
-          className="mainSearch__textinput"
-          name="city"
+          className={this.props.searchInputClass}
+          name='city'
           onChange={this.handleOnUpdateCity}
-          placeholder="Toronto, Canada"
-          type="text"
+          placeholder='Toronto, Canada'
+          type='text'
           value={this.state.city}
-        /><br />
+        />
         <input
-          className="mainSearch__submitbtn--large"
-          type="submit"
-          value="Get Weather"
+          className={this.props.submitBtnClass}
+          type='submit'
+          value='Get Weather'
         />
       </form>
     );
   }
 }
 
-MainSearch.contextTypes = {
+Search.contextTypes = {
   router: React.PropTypes.object.isRequired
+};
+
+Search.propTypes = {
+  formClass: React.PropTypes.string.isRequired,
+  searchInputClass: React.PropTypes.string.isRequired,
+  submitBtnClass: React.PropTypes.string.isRequired
 };

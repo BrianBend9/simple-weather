@@ -69,7 +69,7 @@ function createDataObjectsArray(dataObject) {
     lowTemp: Math.floor(currentForecast.main.temp_min),
     temp: Math.floor(currentForecast.main.temp),
     windDirection: currentForecast.wind.deg,
-    windSpeed: currentForecast.wind.speed
+    windSpeed: Math.floor(currentForecast.wind.speed)
   }});
 
   for (day in fiveDayForecast) {
@@ -83,7 +83,7 @@ function createDataObjectsArray(dataObject) {
     obj[day]['icon'] = getWeatherIcon(fiveDayForecast[day].weather[0].description);
     obj[day]['lowTemp'] = Math.floor(fiveDayForecast[day].temp.min);
     obj[day]['temp'] = Math.floor(fiveDayForecast[day].temp.day);
-    obj[day]['wind'] = fiveDayForecast[day].speed;
+    obj[day]['windSpeed'] = fiveDayForecast[day].speed;
     dataObjectsArray.push(obj);
   }
   return dataObjectsArray;

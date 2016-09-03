@@ -2,7 +2,7 @@
 /* eslint-disable react/jsx-indent-props */
 /* eslint-disable react/no-set-state */
 import React from 'react';
-import SecondarySearch from './SecondarySearch';
+import Search from './Search';
 var classNames = require('classNames');
 
 export default class Menu extends React.Component {
@@ -46,9 +46,7 @@ export default class Menu extends React.Component {
   }
 
   handleOnToggleSearch(event) {
-    console.log(this.state);
     this.computeClass();
-    console.log(this.state);
   }
 
   render() {
@@ -56,7 +54,11 @@ export default class Menu extends React.Component {
       <div className="menu">
         <h1 className={this.state.menuHeadingClass}>{'Simple Weather'}</h1>
         <div className='menu__searchWrapper'>
-          <SecondarySearch searchInputClass={this.state.searchInputClass} />
+          <Search
+            formClass={'secondarySearch'}
+            searchInputClass={this.state.searchInputClass}
+            submitBtnClass={'secondarySearch__submitbtn'}
+          />
           <img
             className='menu__searchbtn'
             onClick={this.handleOnToggleSearch}

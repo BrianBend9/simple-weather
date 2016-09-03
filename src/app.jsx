@@ -11,12 +11,14 @@ import {Route, Router, IndexRoute, hashHistory} from 'react-router';
 import MainContainer from './containers/MainContainer';
 import Home from './components/Home';
 import Forecast from './components/Forecast';
+import ForecastDetail from './components/ForecastDetail';
 
 ReactDOM.render((
     <Router history={hashHistory}>
       <Route path='/' component={MainContainer} >
         <IndexRoute component={Home} />
         <Route path='forecast/:city' component={Forecast} />
+        <Route path='forecast/:day' component={ForecastDetail} />
       </Route>
     </Router>
   ), document.getElementById('app')
