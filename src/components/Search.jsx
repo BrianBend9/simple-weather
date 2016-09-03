@@ -8,6 +8,7 @@ export default class Search extends React.Component {
     this.state = {
       city: ''
     };
+
     this.handleOnUpdateCity = this.handleOnUpdateCity.bind(this);
     this.handleOnSubmitCity = this.handleOnSubmitCity.bind(this);
   }

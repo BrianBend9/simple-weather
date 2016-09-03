@@ -21,6 +21,6 @@ export default class CurrentForecast extends React.Component {
 }
 
 CurrentForecast.propTypes = {
-  description: React.PropTypes.string.isRequired,
-  icon: React.PropTypes.node.isRequired
+  description: React.PropTypes.string,
+  icon: React.PropTypes.string
 };

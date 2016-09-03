@@ -18,6 +18,6 @@ export default class Temperatures extends React.Component {
 }
 
 Temperatures.propTypes = {
-  high: React.PropTypes.number.isRequired,
-  low: React.PropTypes.number.isRequired
+  high: React.PropTypes.number,
+  low: React.PropTypes.number
 };

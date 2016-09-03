@@ -21,7 +21,7 @@ export default class DailyForecast extends React.Component {
 }
 
 DailyForecast.propTypes = {
-  dayOfWeek: React.PropTypes.string.isRequired,
-  description: React.PropTypes.string.isRequired,
-  icon: React.PropTypes.string.isRequired
+  dayOfWeek: React.PropTypes.string,
+  description: React.PropTypes.string,
+  icon: React.PropTypes.string
 };

@@ -8,6 +8,7 @@ import Temperatures from './forecast/Temperatures';
 import DailyForecast from './forecast/DailyForecast';
 import CurrentForecast from './forecast/CurrentForecast';
 import CurrentTemperature from './forecast/CurrentTemperature';
+import {Link} from 'react-router';
 
 export default class Forecast extends React.Component {
   constructor(props) {
@@ -22,6 +23,8 @@ export default class Forecast extends React.Component {
       3: '',
       4: ''
     };
+
+    this.handleOnClick = this.handleOnClick.bind(this);
   }
 
   componentDidMount() {
@@ -31,6 +34,10 @@ export default class Forecast extends React.Component {
     getWeatherData(city).then(dataObjectsArray => {
       dataObjectsArray.forEach(dataObject => this.setState(dataObject));
     });
+  }
+
+  handleOnClick(event) {
+    console.log(event);
   }
 
   render() {
@@ -55,7 +62,10 @@ export default class Forecast extends React.Component {
         </div>
         <div className='dataContainer--5day'>
 
-          <div className="dataDisplay">
+          <div className='dataDisplay'>
+            <Link to={`/forecast/${this.state[0].dayOfWeek}`}>
+            <div className='dataDisplay__mask' />
+            </Link>
             <DailyForecast
               dayOfWeek={this.state[0].dayOfWeek}
               description={this.state[0].description}
@@ -67,7 +77,8 @@ export default class Forecast extends React.Component {
             />
           </div>
 
-          <div className="dataDisplay">
+          <div className='dataDisplay'>
+            <div className='dataDisplay__mask' />
             <DailyForecast
               dayOfWeek={this.state[1].dayOfWeek}
               description={this.state[1].description}
@@ -79,7 +90,8 @@ export default class Forecast extends React.Component {
             />
           </div>
 
-          <div className="dataDisplay">
+          <div className='dataDisplay'>
+            <div className='dataDisplay__mask' />
             <DailyForecast
               dayOfWeek={this.state[2].dayOfWeek}
               description={this.state[2].description}
@@ -91,7 +103,7 @@ export default class Forecast extends React.Component {
             />
           </div>
 
-          <div className="dataDisplay">
+          <div className='dataDisplay'>
             <DailyForecast
               dayOfWeek={this.state[3].dayOfWeek}
               description={this.state[3].description}
@@ -101,9 +113,11 @@ export default class Forecast extends React.Component {
               high={this.state[3].highTemp}
               low={this.state[3].lowTemp}
             />
+            <div className='dataDisplay__mask' />
           </div>
 
-          <div className="dataDisplay">
+          <div className='dataDisplay'>
+            <div className='dataDisplay__mask' />
             <DailyForecast
               dayOfWeek={this.state[4].dayOfWeek}
               description={this.state[4].description}

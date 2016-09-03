@@ -36,9 +36,9 @@ export default class CurrentTemperature extends React.Component {
 }
 
 CurrentTemperature.propTypes = {
-  clouds: React.PropTypes.number.isRequired,
-  humidity: React.PropTypes.number.isRequired,
-  temp: React.PropTypes.number.isRequired,
-  windDirection: React.PropTypes.number.isRequired,
-  windSpeed: React.PropTypes.number.isRequired
+  clouds: React.PropTypes.number,
+  humidity: React.PropTypes.number,
+  temp: React.PropTypes.number,
+  windDirection: React.PropTypes.number,
+  windSpeed: React.PropTypes.number
 };
