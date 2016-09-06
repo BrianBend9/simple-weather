@@ -18,7 +18,7 @@ ReactDOM.render((
       <Route path='/' component={MainContainer} >
         <IndexRoute component={Home} />
         <Route path='forecast/:city' component={Forecast} />
-        <Route path='forecast/:day' component={ForecastDetail} />
+        <Route path='forecast/:city/:day' component={ForecastDetail} />
       </Route>
     </Router>
   ), document.getElementById('app')

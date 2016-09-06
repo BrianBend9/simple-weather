@@ -3,16 +3,17 @@
 /* eslint-disable react/prop-types*/
 /* eslint-disable react/jsx-indent-props*/
 import React from 'react';
-import {getWeatherData} from '../utils/DataHelpers';
 import Temperatures from './forecast/Temperatures';
 import DailyForecast from './forecast/DailyForecast';
 import CurrentForecast from './forecast/CurrentForecast';
 import CurrentTemperature from './forecast/CurrentTemperature';
-import {Link} from 'react-router';
+import WeatherDataStore from '../stores/WeatherDataStore';
+import * as WeatherDataActions from '../actions/WeatherDataActions';
+import { Link } from 'react-router';
 
 export default class Forecast extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       city: '',
       country: '',
@@ -23,21 +24,28 @@ export default class Forecast extends React.Component {
       3: '',
       4: ''
     };
+    this.updateWeatherState = this.updateWeatherState.bind(this);
+  }
 
-    this.handleOnClick = this.handleOnClick.bind(this);
+  componentWillMount() {
+    const currentPath = this.props.location.pathname;
+    const city = currentPath.slice(currentPath.match(/\/\w*\//)[0].length);
+
+    WeatherDataActions.getQueryData(city);
   }
 
   componentDidMount() {
-    var currentPath = this.props.location.pathname;
-    var city = currentPath.slice(currentPath.match(/\/\w*\//)[0].length);
-
-    getWeatherData(city).then(dataObjectsArray => {
-      dataObjectsArray.forEach(dataObject => this.setState(dataObject));
-    });
+    WeatherDataStore.on('change', this.updateWeatherState);
   }
 
-  handleOnClick(event) {
-    console.log(event);
+  componentWilUnmount() {
+    WeatherDataStore.removeListener('change', this.updateWeatherState);
+  }
+
+  updateWeatherState() {
+    const queryData = WeatherDataStore.getAllStored();
+
+    queryData.forEach(dataObject => this.setState(dataObject));
   }
 
   render() {
@@ -63,8 +71,11 @@ export default class Forecast extends React.Component {
         <div className='dataContainer--5day'>
 
           <div className='dataDisplay'>
-            <Link to={`/forecast/${this.state[0].dayOfWeek}`}>
-            <div className='dataDisplay__mask' />
+            <Link
+              description={this.state[0].description}
+              to={`/forecast/${this.state.city}/${this.state[0].dayOfWeek}/`}
+            >
+              <div className='dataDisplay__mask' />
             </Link>
             <DailyForecast
               dayOfWeek={this.state[0].dayOfWeek}
@@ -78,7 +89,9 @@ export default class Forecast extends React.Component {
           </div>
 
           <div className='dataDisplay'>
-            <div className='dataDisplay__mask' />
+            <Link to={`/forecast/${this.state.city}/${this.state[1].dayOfWeek}/`}>
+              <div className='dataDisplay__mask' />
+            </Link>
             <DailyForecast
               dayOfWeek={this.state[1].dayOfWeek}
               description={this.state[1].description}
@@ -91,7 +104,9 @@ export default class Forecast extends React.Component {
           </div>
 
           <div className='dataDisplay'>
-            <div className='dataDisplay__mask' />
+            <Link to={`/forecast/${this.state.city}/${this.state[2].dayOfWeek}/`}>
+              <div className='dataDisplay__mask' />
+            </Link>
             <DailyForecast
               dayOfWeek={this.state[2].dayOfWeek}
               description={this.state[2].description}
@@ -104,6 +119,9 @@ export default class Forecast extends React.Component {
           </div>
 
           <div className='dataDisplay'>
+            <Link to={`/forecast/${this.state.city}/${this.state[3].dayOfWeek}/`}>
+              <div className='dataDisplay__mask' />
+            </Link>
             <DailyForecast
               dayOfWeek={this.state[3].dayOfWeek}
               description={this.state[3].description}
@@ -113,11 +131,12 @@ export default class Forecast extends React.Component {
               high={this.state[3].highTemp}
               low={this.state[3].lowTemp}
             />
-            <div className='dataDisplay__mask' />
           </div>
 
           <div className='dataDisplay'>
-            <div className='dataDisplay__mask' />
+            <Link to={`/forecast/${this.state.city}/${this.state[4].dayOfWeek}/`}>
+              <div className='dataDisplay__mask' />
+            </Link>
             <DailyForecast
               dayOfWeek={this.state[4].dayOfWeek}
               description={this.state[4].description}

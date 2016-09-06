@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-indent-props */
 /* eslint-disable react/no-set-state */
 import React from 'react';
+import * as WeatherDataActions from '../actions/WeatherDataActions';
 
 export default class Search extends React.Component {
   constructor() {
@@ -26,7 +27,9 @@ export default class Search extends React.Component {
     this.setState({
       city: ''
     });
+
     this.context.router.push('/forecast/' + city);
+    WeatherDataActions.getQueryData(city);
   }
 
   render() {

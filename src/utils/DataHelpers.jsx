@@ -1,12 +1,11 @@
 /* eslint-disable handle-callback-err */
 /* eslint-disable consistent-return */
 import {getWeatherIcon} from './IconHelper';
-
 require('es6-promise').polyfill();
 
 function getData(url, apikey) {
   return new Promise(function(resolve, reject) {
-    var xhr = new XMLHttpRequest();
+    const xhr = new XMLHttpRequest();
 
     if (apikey !== undefined) {
       xhr.open('GET', url, false);
@@ -53,37 +52,39 @@ function dayOfWeek(unixTimestamp) {
 }
 
 function createDataObjectsArray(dataObject) {
-  const currentForecast = dataObject[0];
-  const fiveDayForecast = dataObject[1].list;
-  var dataObjectsArray = [];
-  var day, obj;
+  const currentForecast = dataObject[0],
+    fiveDayForecast = dataObject[1].list,
+    dataObjectsArray = [];
 
-  dataObjectsArray.push({'city': currentForecast.name});
-  dataObjectsArray.push({'country': currentForecast.sys.country});
-  dataObjectsArray.push({currentForecast: {
-    clouds: currentForecast.clouds.all,
-    description: currentForecast.weather[0].description,
-    icon: getWeatherIcon(currentForecast.weather[0].description),
-    highTemp: Math.floor(currentForecast.main.temp_max),
-    humidity: currentForecast.main.humidity,
-    lowTemp: Math.floor(currentForecast.main.temp_min),
-    temp: Math.floor(currentForecast.main.temp),
-    windDirection: currentForecast.wind.deg,
-    windSpeed: Math.floor(currentForecast.wind.speed)
-  }});
+  dataObjectsArray.push(
+    {'city': currentForecast.name},
+    {'country': currentForecast.sys.country},
+    {currentForecast: {
+      clouds: currentForecast.clouds.all,
+      description: currentForecast.weather[0].description,
+      icon: getWeatherIcon(currentForecast.weather[0].description),
+      highTemp: Math.floor(currentForecast.main.temp_max),
+      humidity: currentForecast.main.humidity,
+      lowTemp: Math.floor(currentForecast.main.temp_min),
+      temp: Math.floor(currentForecast.main.temp),
+      windDirection: currentForecast.wind.deg,
+      windSpeed: Math.floor(currentForecast.wind.speed)
+    }}
+  );
 
-  for (day in fiveDayForecast) {
-    obj = {};
-    obj[day] = {};
-    obj[day]['dayOfWeek'] = dayOfWeek(fiveDayForecast[day].dt);
-    obj[day]['description'] = fiveDayForecast[day].weather[0].description;
-    obj[day]['fullDate'] = (new Date(fiveDayForecast[day].dt * 1000)).toDateString();
-    obj[day]['highTemp'] = Math.floor(fiveDayForecast[day].temp.max);
-    obj[day]['humidity'] = fiveDayForecast[day].humidity;
-    obj[day]['icon'] = getWeatherIcon(fiveDayForecast[day].weather[0].description);
-    obj[day]['lowTemp'] = Math.floor(fiveDayForecast[day].temp.min);
-    obj[day]['temp'] = Math.floor(fiveDayForecast[day].temp.day);
-    obj[day]['windSpeed'] = fiveDayForecast[day].speed;
+  for (let i = 0; i < fiveDayForecast.length; i++) {
+    let obj = {};
+
+    obj[i] = {};
+    obj[i]['dayOfWeek'] = dayOfWeek(fiveDayForecast[i].dt);
+    obj[i]['description'] = fiveDayForecast[i].weather[0].description;
+    obj[i]['fullDate'] = (new Date(fiveDayForecast[i].dt * 1000)).toDateString();
+    obj[i]['highTemp'] = Math.floor(fiveDayForecast[i].temp.max);
+    obj[i]['humidity'] = fiveDayForecast[i].humidity;
+    obj[i]['icon'] = getWeatherIcon(fiveDayForecast[i].weather[0].description);
+    obj[i]['lowTemp'] = Math.floor(fiveDayForecast[i].temp.min);
+    obj[i]['temp'] = Math.floor(fiveDayForecast[i].temp.day);
+    obj[i]['windSpeed'] = Math.floor(fiveDayForecast[i].speed);
     dataObjectsArray.push(obj);
   }
   return dataObjectsArray;
