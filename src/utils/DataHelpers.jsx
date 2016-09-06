@@ -76,6 +76,7 @@ function createDataObjectsArray(dataObject) {
     let obj = {};
 
     obj[i] = {};
+    obj[i]['clouds'] = fiveDayForecast[i].clouds;
     obj[i]['dayOfWeek'] = dayOfWeek(fiveDayForecast[i].dt);
     obj[i]['description'] = fiveDayForecast[i].weather[0].description;
     obj[i]['fullDate'] = (new Date(fiveDayForecast[i].dt * 1000)).toDateString();
@@ -84,7 +85,9 @@ function createDataObjectsArray(dataObject) {
     obj[i]['icon'] = getWeatherIcon(fiveDayForecast[i].weather[0].description);
     obj[i]['lowTemp'] = Math.floor(fiveDayForecast[i].temp.min);
     obj[i]['temp'] = Math.floor(fiveDayForecast[i].temp.day);
+    obj[i]['windDirection'] = Math.floor(fiveDayForecast[i].deg);
     obj[i]['windSpeed'] = Math.floor(fiveDayForecast[i].speed);
+
     dataObjectsArray.push(obj);
   }
   return dataObjectsArray;
@@ -99,12 +102,14 @@ function getWeatherData(city) {
   const urlEndpointArray = [currentForecastUrl, fiveDayForcastUrl];
 
   return Promise.all(urlEndpointArray.map(urlEndpoint =>
+
     getData(urlEndpoint, apikey)
   )).then(function(dataObjectArray) {
     return dataObjectArray.map(function(dataObject) {
       return JSON.parse(dataObject);
     });
   }).then(function(dataObject) {
+    console.log(dataObject);
     return createDataObjectsArray(dataObject);
   });
 }

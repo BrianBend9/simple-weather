@@ -195,6 +195,7 @@
     //react/jsx rules
     "react/prefer-stateless-function": "off",
     "react/jsx-indent": "off",
-    "react/require-optimization": "off"
+    "react/require-optimization": "off",
+    "react/no-set-state": "off"
   }
 }

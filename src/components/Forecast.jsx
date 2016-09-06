@@ -28,8 +28,7 @@ export default class Forecast extends React.Component {
   }
 
   componentWillMount() {
-    const currentPath = this.props.location.pathname;
-    const city = currentPath.slice(currentPath.match(/\/\w*\//)[0].length);
+    const city = this.props.params.city;
 
     WeatherDataActions.getQueryData(city);
   }
@@ -71,10 +70,7 @@ export default class Forecast extends React.Component {
         <div className='dataContainer--5day'>
 
           <div className='dataDisplay'>
-            <Link
-              description={this.state[0].description}
-              to={`/forecast/${this.state.city}/${this.state[0].dayOfWeek}/`}
-            >
+            <Link to={`/forecast/${this.state.city}/${this.state[0].dayOfWeek}/`}>
               <div className='dataDisplay__mask' />
             </Link>
             <DailyForecast

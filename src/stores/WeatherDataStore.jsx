@@ -12,14 +12,24 @@ class WeatherDataStore extends EventEmitter {
   getQueryData(queryCity, action) {
     return getWeatherData(queryCity).then(dataObjectsArray => {
       this.weatherData = dataObjectsArray;
-    }).then(() =>{
-        this.emit('change');
-      }
-    );
+      this.emit('change');
+    });
   }
 
   getAllStored() {
     return this.weatherData;
+  }
+
+  getDayStored(dayQuery) {
+    const dataArray = this.weatherData.slice(3);
+    var result;
+
+    for (let i = 0; i < dataArray.length; i++) {
+      if (dataArray[i][i]['dayOfWeek'] === dayQuery) {
+        result = dataArray[i][i];
+      }
+    }
+    return result;
   }
 
   handleActions(action) {
@@ -34,4 +44,5 @@ class WeatherDataStore extends EventEmitter {
 const weatherDataStore = new WeatherDataStore();
 
 dispatcher.register(weatherDataStore.handleActions.bind(weatherDataStore));
+
 export default weatherDataStore;
