@@ -94,7 +94,7 @@ function createDataObjectsArray(dataObject) {
 }
 
 function getWeatherData(city) {
-  const apikey = '06e4d406550bf413c913e25583660216';
+  const apikey = process.env.WEATHER_APIKEY;
   const fiveDayForcastUrl = 'http://api.openweathermap.org/data/2.5/forecast/daily?q=' +
   city + '&type=accurate&units=metric&APPID=' + apikey + '&cnt=5';
   const currentForecastUrl = 'http://api.openweathermap.org/data/2.5/weather?q=' +
