@@ -2,6 +2,7 @@
 /* eslint-disable react/jsx-indent-props */
 /* eslint-disable react/no-set-state */
 import React from 'react';
+import { Link } from 'react-router';
 import Search from './Search';
 var classNames = require('classNames');
 
@@ -52,7 +53,9 @@ export default class Menu extends React.Component {
   render() {
     return (
       <div className="menu">
-        <h1 className={this.state.menuHeadingClass}>{'Simple Weather'}</h1>
+        <Link to={'/'}>
+          <h1 className={this.state.menuHeadingClass}>{'Simple Weather'}</h1>
+        </Link>
         <div className='menu__searchWrapper'>
           <Search
             formClass={'secondarySearch'}

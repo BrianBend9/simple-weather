@@ -37,7 +37,7 @@ export default class Forecast extends React.Component {
     WeatherDataStore.on('change', this.updateWeatherState);
   }
 
-  componentWilUnmount() {
+  componentWillUnmount() {
     WeatherDataStore.removeListener('change', this.updateWeatherState);
   }
 

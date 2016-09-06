@@ -109,7 +109,6 @@ function getWeatherData(city) {
       return JSON.parse(dataObject);
     });
   }).then(function(dataObject) {
-    console.log(dataObject);
     return createDataObjectsArray(dataObject);
   });
 }

@@ -10,17 +10,9 @@ export default class ForecastDetail extends React.Component {
 
   componentWillMount() {
     const day = this.props.params.day;
-    var dayData = WeatherDataStore.getDayStored(day);
+    const dayData = WeatherDataStore.getDayStored(day);
 
     this.setState(dayData);
-  }
-
-  componentDidMount() {
-    const day = this.props.params.day;
-    var dayData = WeatherDataStore.getDayStored(day);
-
-    this.setState(dayData);
-    console.log('state', this.state);
   }
 
   render() {
@@ -69,9 +61,3 @@ export default class ForecastDetail extends React.Component {
     );
   }
 }
-
-ForecastDetail.propTypes = {
-  description: React.PropTypes.string,
-  high: React.PropTypes.number,
-  icon: React.PropTypes.node
-};

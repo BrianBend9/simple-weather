@@ -18,7 +18,7 @@
 }
 
 .tempContainer--detail__reading {
-  width: 35%;
+  width: 30%;
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
@@ -31,7 +31,7 @@
 }
 
 .iconContainer--detail {
-  width: 25%;
+  width: 35%;
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
@@ -70,4 +70,56 @@
 
 .envContainer--detail__header {
   margin: 0px 0px 5px 0px;
+}
+
+@media all and (max-width: 1100px) {
+  .iconContainer--detail__svg {
+    width: 120px;
+  }
+
+  .detailContainer__description {
+    font-size: 26px;
+  }
+}
+
+
+@media all and (max-width: 750px) {
+  .tempContainer--detail {
+    width: 100%;
+    height: 100px;
+  }
+
+  .tempContainer--detail__temp {
+    font-size: 36px;
+  }
+
+  .tempContainer--detail__heading {
+    font-size: 24px;
+    margin: 0px;
+  }
+
+  .iconContainer--detail__svg {
+    width: 80px;
+  }
+
+  .detailContainer__description {
+    margin: 0px;
+    font-size: 20px;
+  }
+
+  .envContainer--detail {
+    height: 100px;
+    width: 100%;
+  }
+
+  .detailContainer__date {
+    font-size: 26px;
+  }
+}
+
+@media all and (max-width: 750px) and (orientation: landscape) {
+  .detailContainer {
+    width: 60%;
+    height: 75%;
+  }
 }
