@@ -13,7 +13,7 @@ module.exports = {
 
   output: {
     path: __dirname + '/dist',
-    publicPath: 'http://localhost:8080/dist',
+    publicPath: 'http://localhost:8080/',
     filename: (build) ? '[name].bundle.min.js' : '[name].bundle.js'
   },
 
@@ -53,7 +53,7 @@ module.exports = {
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
         loaders: [
-          'file?hash=sha512&digest=hex&name=/images/[name]-[hash].[ext]',
+          'file?hash=sha512&digest=hex&name=images/[name]-[hash].[ext]',
           'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
         ]
       },
@@ -61,7 +61,7 @@ module.exports = {
       {
         test: /\.(eot|svg|ttf|woff|woff2)$/,
         include: __dirname + '/src/stylesheets/fonts',
-        loader: 'file?name=/fonts/[name].[ext]'
+        loader: 'file?name=fonts/[name].[ext]'
       }
     ]
   },

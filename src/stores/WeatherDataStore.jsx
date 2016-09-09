@@ -6,27 +6,44 @@ import dispatcher from '../dispatchers/dispatcher';
 class WeatherDataStore extends EventEmitter {
   constructor() {
     super();
-    this.weatherData = '';
+    this.currentForecast = [];
+    this.location = '';
+    this.weekForecast = [];
   }
 
-  getQueryData(queryCity, action) {
-    return getWeatherData(queryCity).then(dataObjectsArray => {
-      this.weatherData = dataObjectsArray;
+  updateLocation(location) {
+    this.location = location;
+  }
+
+  getQueryData(location) {
+    console.log('getQueryData', arguments);
+    getWeatherData(location).then(data => {
+      this.currentForecast = data[0];
+      this.weekForecast = data[1];
+    }).then(data => {
       this.emit('change');
     });
   }
 
   getAllStored() {
-    return this.weatherData;
+    return [this.location,
+      this.currentForecast,
+      this.weekForecast[0],
+      this.weekForecast[1],
+      this.weekForecast[2],
+      this.weekForecast[3],
+      this.weekForecast[4]
+    ];
   }
 
   getDayStored(dayQuery) {
-    const dataArray = this.weatherData.slice(3);
+    const dataArray = this.weekForecast;
     var result;
 
+    console.log('getDayStored', dataArray);
     for (let i = 0; i < dataArray.length; i++) {
-      if (dataArray[i][i]['dayOfWeek'] === dayQuery) {
-        result = dataArray[i][i];
+      if (dataArray[i][i + 1]['dayOfWeek'] === dayQuery) {
+        result = dataArray[i][i + 1];
       }
     }
     return result;
@@ -35,7 +52,10 @@ class WeatherDataStore extends EventEmitter {
   handleActions(action) {
     switch (action.type) {
       case 'GET_QUERY_DATA':
-        this.getQueryData(action.queryCity);
+        this.getQueryData(action.location);
+        break;
+      case 'UPDATE_LOCATION':
+        this.updateLocation(action.location);
         break;
     }
   }

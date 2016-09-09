@@ -3,7 +3,7 @@
   width: 80%;
 }
 
-.cityHeader {
+.locationHeader {
   padding-top: 100px;
   margin: 0px;
 }
@@ -70,7 +70,7 @@
 }
 
 @media all and (max-width: 1100px) and (orientation: landscape) {
-  .cityHeader {
+  .locationHeader {
     padding-top: 75px;
   }
 
@@ -89,7 +89,7 @@
 
 @media all and (max-width: 750px) {
 
-  .cityHeader {
+  .locationHeader {
     padding-top: 105px;
   }
 
@@ -122,7 +122,7 @@
 }
 
 @media all and (max-width: 750px) and (orientation: landscape) {
-  .cityHeader {
+  .locationHeader {
     font-size: 20px;
     padding-top: 55px;
   }
@@ -133,7 +133,7 @@
 }
 
 @media all and (max-width: 400px) {
-  .cityHeader {
+  .locationHeader {
     font-size: 24px;
     padding-top: 100px;
   }

@@ -7,44 +7,44 @@ export default class Search extends React.Component {
   constructor() {
     super();
     this.state = {
-      city: ''
+      location: ''
     };
 
-    this.handleOnUpdateCity = this.handleOnUpdateCity.bind(this);
-    this.handleOnSubmitCity = this.handleOnSubmitCity.bind(this);
+    this.handleOnUpdateLocation = this.handleOnUpdateLocation.bind(this);
+    this.handleOnSubmitLocation = this.handleOnSubmitLocation.bind(this);
   }
 
-  handleOnUpdateCity(event) {
+  handleOnUpdateLocation(event) {
     this.setState({
-      city: event.target.value
+      location: event.target.value
     });
   }
 
-  handleOnSubmitCity(event) {
-    var city = this.state.city;
+  handleOnSubmitLocation(event) {
+    var location = this.state.location;
 
     event.preventDefault();
     this.setState({
-      city: ''
+      location: ''
     });
 
-    this.context.router.push('/forecast/' + city);
-    WeatherDataActions.getQueryData(city);
+    this.context.router.push('/forecast/' + location);
+    WeatherDataActions.getQueryData(location);
   }
 
   render() {
     return (
       <form
         className={this.props.formClass}
-        onSubmit={this.handleOnSubmitCity}
+        onSubmit={this.handleOnSubmitLocation}
       >
         <input
           className={this.props.searchInputClass}
-          name='city'
-          onChange={this.handleOnUpdateCity}
+          name='location'
+          onChange={this.handleOnUpdateLocation}
           placeholder='Toronto, Canada'
           type='text'
-          value={this.state.city}
+          value={this.state.location}
         />
         <input
           className={this.props.submitBtnClass}

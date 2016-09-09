@@ -15,22 +15,21 @@ export default class Forecast extends React.Component {
   constructor() {
     super();
     this.state = {
-      city: '',
-      country: '',
-      currentForecast: '',
-      0: '',
-      1: '',
-      2: '',
-      3: '',
-      4: ''
+      location: '',
+      currentForecast: {},
+      1: {},
+      2: {},
+      3: {},
+      4: {},
+      5: {}
     };
     this.updateWeatherState = this.updateWeatherState.bind(this);
   }
 
   componentWillMount() {
-    const city = this.props.params.city;
+    const location = this.props.params.location;
 
-    WeatherDataActions.getQueryData(city);
+    WeatherDataActions.getQueryData(location);
   }
 
   componentDidMount() {
@@ -45,13 +44,14 @@ export default class Forecast extends React.Component {
     const queryData = WeatherDataStore.getAllStored();
 
     queryData.forEach(dataObject => this.setState(dataObject));
+    console.log('updateWeatherState', this.state);
   }
 
   render() {
     return (
       <div className='dataContainer'>
         <div className='dataContainer--current'>
-          <h1 className='cityHeader'>{this.state.city}{', ' + this.state.country}</h1>
+          <h1 className='locationHeader'>{this.state.location}</h1>
 
           <div className="dataDisplay--large">
             <CurrentForecast
@@ -70,22 +70,7 @@ export default class Forecast extends React.Component {
         <div className='dataContainer--5day'>
 
           <div className='dataDisplay'>
-            <Link to={`/forecast/${this.state.city}/${this.state[0].dayOfWeek}/`}>
-              <div className='dataDisplay__mask' />
-            </Link>
-            <DailyForecast
-              dayOfWeek={this.state[0].dayOfWeek}
-              description={this.state[0].description}
-              icon={this.state[0].icon}
-            />
-            <Temperatures
-              high={this.state[0].highTemp}
-              low={this.state[0].lowTemp}
-            />
-          </div>
-
-          <div className='dataDisplay'>
-            <Link to={`/forecast/${this.state.city}/${this.state[1].dayOfWeek}/`}>
+            <Link to={`/forecast/${this.state.location}/${this.state[1].dayOfWeek}/`}>
               <div className='dataDisplay__mask' />
             </Link>
             <DailyForecast
@@ -100,7 +85,7 @@ export default class Forecast extends React.Component {
           </div>
 
           <div className='dataDisplay'>
-            <Link to={`/forecast/${this.state.city}/${this.state[2].dayOfWeek}/`}>
+            <Link to={`/forecast/${this.state.location}/${this.state[2].dayOfWeek}/`}>
               <div className='dataDisplay__mask' />
             </Link>
             <DailyForecast
@@ -115,7 +100,7 @@ export default class Forecast extends React.Component {
           </div>
 
           <div className='dataDisplay'>
-            <Link to={`/forecast/${this.state.city}/${this.state[3].dayOfWeek}/`}>
+            <Link to={`/forecast/${this.state.location}/${this.state[3].dayOfWeek}/`}>
               <div className='dataDisplay__mask' />
             </Link>
             <DailyForecast
@@ -130,7 +115,7 @@ export default class Forecast extends React.Component {
           </div>
 
           <div className='dataDisplay'>
-            <Link to={`/forecast/${this.state.city}/${this.state[4].dayOfWeek}/`}>
+            <Link to={`/forecast/${this.state.location}/${this.state[4].dayOfWeek}/`}>
               <div className='dataDisplay__mask' />
             </Link>
             <DailyForecast
@@ -141,6 +126,21 @@ export default class Forecast extends React.Component {
             <Temperatures
               high={this.state[4].highTemp}
               low={this.state[4].lowTemp}
+            />
+          </div>
+
+          <div className='dataDisplay'>
+            <Link to={`/forecast/${this.state.location}/${this.state[5].dayOfWeek}/`}>
+              <div className='dataDisplay__mask' />
+            </Link>
+            <DailyForecast
+              dayOfWeek={this.state[5].dayOfWeek}
+              description={this.state[5].description}
+              icon={this.state[5].icon}
+            />
+            <Temperatures
+              high={this.state[5].highTemp}
+              low={this.state[5].lowTemp}
             />
           </div>
         </div>

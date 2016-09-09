@@ -1,16 +1,21 @@
 /* eslint-disable handle-callback-err */
 /* eslint-disable consistent-return */
+/* eslint-disable no-unused-vars */
+/* eslint-disable indent */
 import {getWeatherIcon} from './IconHelper';
+import * as WeatherDataActions from '../actions/WeatherDataActions';
 require('es6-promise').polyfill();
 
-function getData(url, apikey) {
+function sendHttpRequest(url, useCORS = false) {
   return new Promise(function(resolve, reject) {
-    const xhr = new XMLHttpRequest();
+    let xhr = new XMLHttpRequest();
 
-    if (apikey !== undefined) {
-      xhr.open('GET', url, false);
-    } else {
-      xhr.open('GET', url + apikey, false);
+    if ('withCredentials' in xhr) {
+      xhr.open('GET', url, true);
+    // for IE support prior to IE11
+    } else if (typeof XDomainRequest !== 'undefined') {
+      xhr = new XDomainRequest();
+      xhr.open('GET', url);
     }
 
     xhr.onload = function() {
@@ -51,66 +56,81 @@ function dayOfWeek(unixTimestamp) {
   }
 }
 
-function createDataObjectsArray(dataObject) {
-  const currentForecast = dataObject[0],
-    fiveDayForecast = dataObject[1].list,
-    dataObjectsArray = [];
+function currentForecastObj(obj) {
+  let currentForecastObj = {};
 
-  dataObjectsArray.push(
-    {'city': currentForecast.name},
-    {'country': currentForecast.sys.country},
-    {currentForecast: {
-      clouds: currentForecast.clouds.all,
-      description: currentForecast.weather[0].description,
-      icon: getWeatherIcon(currentForecast.weather[0].description),
-      highTemp: Math.floor(currentForecast.main.temp_max),
-      humidity: currentForecast.main.humidity,
-      lowTemp: Math.floor(currentForecast.main.temp_min),
-      temp: Math.floor(currentForecast.main.temp),
-      windDirection: currentForecast.wind.deg,
-      windSpeed: Math.floor(currentForecast.wind.speed)
-    }}
-  );
-
-  for (let i = 0; i < fiveDayForecast.length; i++) {
-    let obj = {};
-
-    obj[i] = {};
-    obj[i]['clouds'] = fiveDayForecast[i].clouds;
-    obj[i]['dayOfWeek'] = dayOfWeek(fiveDayForecast[i].dt);
-    obj[i]['description'] = fiveDayForecast[i].weather[0].description;
-    obj[i]['fullDate'] = (new Date(fiveDayForecast[i].dt * 1000)).toDateString();
-    obj[i]['highTemp'] = Math.floor(fiveDayForecast[i].temp.max);
-    obj[i]['humidity'] = fiveDayForecast[i].humidity;
-    obj[i]['icon'] = getWeatherIcon(fiveDayForecast[i].weather[0].description);
-    obj[i]['lowTemp'] = Math.floor(fiveDayForecast[i].temp.min);
-    obj[i]['temp'] = Math.floor(fiveDayForecast[i].temp.day);
-    obj[i]['windDirection'] = Math.floor(fiveDayForecast[i].deg);
-    obj[i]['windSpeed'] = Math.floor(fiveDayForecast[i].speed);
-
-    dataObjectsArray.push(obj);
-  }
-  return dataObjectsArray;
+  currentForecastObj =
+    {
+      'currentForecast': {
+        clouds: obj.cloudCover,
+        fullDate: new Date(obj.time * 1000).toDateString(),
+        description: obj.summary,
+        icon: getWeatherIcon(obj.icon),
+        humidity: obj.humidity, /* relative humidity between 0 and 1 */
+        temp: Math.floor(obj.apparentTemperature), /* celsius */
+        windDirection: obj.windBearing, /* degrees from 0 clockwise */
+        windSpeed: obj.windSpeed /* km per hour */
+      }
+    };
+  return currentForecastObj;
 }
 
-function getWeatherData(city) {
-  const apikey = '06e4d406550bf413c913e25583660216';
-  const fiveDayForcastUrl = 'http://api.openweathermap.org/data/2.5/forecast/daily?q=' +
-  city + '&type=accurate&units=metric&APPID=' + apikey + '&cnt=5';
-  const currentForecastUrl = 'http://api.openweathermap.org/data/2.5/weather?q=' +
-  city + '&type=accurate&units=metric&APPID=' + apikey;
-  const urlEndpointArray = [currentForecastUrl, fiveDayForcastUrl];
+function weekForecastArray(obj) {
+  const weekForecastArray = [];
 
-  return Promise.all(urlEndpointArray.map(urlEndpoint =>
+  for (let day = 1; day < 6; day++) {
+    let dayForecast = {};
 
-    getData(urlEndpoint, apikey)
-  )).then(function(dataObjectArray) {
-    return dataObjectArray.map(function(dataObject) {
-      return JSON.parse(dataObject);
-    });
-  }).then(function(dataObject) {
-    return createDataObjectsArray(dataObject);
+    dayForecast = {
+      [day]: {
+        'clouds': obj.data[day].cloudCover,
+        'dayOfWeek': dayOfWeek(obj.data[day].time),
+        'description': obj.data[day].summary,
+        'fullDate': new Date(obj.data[day].time * 1000).toDateString(),
+        'highTemp': Math.floor(obj.data[day].temperatureMax), /* celsius */
+        'humidity': obj.data[day].humidity, /* relative humidity between 0 and 1 */
+        'icon': getWeatherIcon(obj.data[day].icon),
+        'lowTemp': Math.floor(obj.data[day].temperatureMin), /* celsius */
+        'windDirection': Math.floor(obj.data[day].windBearing), /* degrees from 0 clockwise */
+        'windSpeed': Math.floor(obj.data[day].windSpeed) /* km per hour */
+      }
+    };
+    weekForecastArray.push(dayForecast);
+  }
+  return weekForecastArray;
+}
+
+function geocodeLocation(location) {
+  const apikey = 'AIzaSyAwSTCw161Dx-UwIx2KAtYm_UmfTMiFKz4';
+  const apiEndpoint = `https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=${apikey}`;
+
+  return sendHttpRequest(apiEndpoint).then(function(response) {
+    const location = {location: JSON.parse(response).results[0].formatted_address};
+    const coordinates = JSON.parse(response).results[0].geometry.location;
+    const locationObject = {location, coordinates};
+
+    WeatherDataActions.updateLocation(location);
+    return locationObject;
   });
 }
 
-export {getWeatherData, getData};
+function getWeatherData(location) {
+  const apikey = '63f086bc90a0817da47d6fea5205ee6e';
+
+  return geocodeLocation(location)
+  .then(function(response) {
+    const apiEndpoint =
+    `https://api.forecast.io/forecast/${apikey}/${response.coordinates.lat},${response.coordinates.lng}?units=ca`;
+
+    return sendHttpRequest(apiEndpoint);
+  }).then(function(response) {
+    return JSON.parse(response);
+  }).then(function(response) {
+    const currentForecast = currentForecastObj(response.currently);
+    const weekForecast = weekForecastArray(response.daily);
+
+    return [currentForecast, weekForecast];
+  });
+};
+
+export {getWeatherData};
