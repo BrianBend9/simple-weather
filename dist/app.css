@@ -423,6 +423,8 @@ p,
 body,
 span {
   font-family: "Droid Sans", sans-serif;
+  font-size: 14px;
+  margin: 0px;
 }
 
 /* fjalla-one-regular - latin */
@@ -569,9 +571,9 @@ span {
   -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -webkit-align-items: left;
+      -ms-flex-align: left;
+          align-items: left;
   padding: 10px 10px 0px 0px;
   font-size: 18px;
 }
@@ -619,9 +621,9 @@ span {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-justify-content: flex-start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .tempContainer--current__readingUnit {
@@ -657,14 +659,8 @@ span {
   }
 }
 
-@media all and (max-width: 1100px) {
-  .tempContainer--current__reading--large {
-    font-size: 94px;
-  }
-  .envContainer--current__reading {
-    font-size: 16px;
-    padding-right: 5px;
-  }
+.envContainer--current__wrapper {
+  padding: 0px;
 }
 
 @media all and (max-width: 975px) {
@@ -718,7 +714,7 @@ span {
 }
 
 .briefContainer--daily__descHeader {
-  font-size: 16px;
+  font-size: 14px;
   margin: 0px 10px 0px 10px;
 }
 
@@ -742,6 +738,12 @@ span {
 .iconContainer--daily__svg {
   height: 85%;
   width: 100%;
+}
+
+@media all and (max-width: 1100px) {
+  .iconContainer--daily__svg {
+    height: 75%;
+  }
 }
 
 @media all and (max-width: 750px) {
@@ -780,17 +782,20 @@ span {
     padding: 0px 0px 0px 10px;
   }
   .briefContainer--daily__dayHeader {
-    font-size: 16px;
+    font-size: 14px;
   }
   .briefContainer--daily__descHeader {
-    font-size: 15px;
+    font-size: 12px;
     margin: 0px;
   }
 }
 
-@media all and (max-width: 400px) {
-  .briefContainer--daily__descHeader {
+@media all and (max-width: 700px) and (orientation: landscape) {
+  .briefContainer--daily__dayHeader {
     font-size: 13px;
+  }
+  .briefContainer--daily__descHeader {
+    font-size: 11px;
   }
 }
 
@@ -799,7 +804,7 @@ span {
   width: 80%;
 }
 
-.cityHeader {
+.locationHeader {
   padding-top: 100px;
   margin: 0px;
 }
@@ -886,7 +891,7 @@ span {
 }
 
 @media all and (max-width: 1100px) and (orientation: landscape) {
-  .cityHeader {
+  .locationHeader {
     padding-top: 75px;
   }
   .dataContainer--5day {
@@ -896,12 +901,12 @@ span {
     height: 179px;
   }
   .dataDisplay--large {
-    height: 63%;
+    height: 65%;
   }
 }
 
 @media all and (max-width: 750px) {
-  .cityHeader {
+  .locationHeader {
     padding-top: 105px;
   }
   .dataDisplay {
@@ -939,7 +944,7 @@ span {
 }
 
 @media all and (max-width: 750px) and (orientation: landscape) {
-  .cityHeader {
+  .locationHeader {
     font-size: 20px;
     padding-top: 55px;
   }
@@ -949,7 +954,7 @@ span {
 }
 
 @media all and (max-width: 400px) {
-  .cityHeader {
+  .locationHeader {
     font-size: 24px;
     padding-top: 100px;
   }
@@ -1301,7 +1306,6 @@ span {
   -webkit-flex-flow: row nowrap;
       -ms-flex-flow: row nowrap;
           flex-flow: row nowrap;
-  font-size: 16px;
 }
 
 .tempContainer__reading {
@@ -1339,11 +1343,20 @@ span {
             justify-content: center;
     padding-bottom: 0px;
   }
+  .tempContainer__heading {
+    font-size: 14px;
+  }
+  .tempContainer__reading p {
+    font-size: 12px;
+  }
 }
 
-@media all and (max-width: 400px) {
+@media all and (max-width: 700px) and (orientation: landscape) {
   .tempContainer__reading {
-    font-size: 13px;
+    font-size: 12px;
+  }
+  .tempContainer__reading p {
+    font-size: 11px;
   }
 }
 
@@ -1362,11 +1375,7 @@ span {
           justify-content: center;
   width: 100%;
   height: 100%;
-<<<<<<< HEAD
-  background-image: url(http://localhost:8080//images/background-4ee98754508fd84b03f1ec6d2d1ea195.jpg);
-=======
-  background-image: url(http://localhost:8080/dist/images/background-1b7e447117b8e82d8736096d9a43a057.jpg);
->>>>>>> a448d717c14602bc87fb99057716b8ff6f6ef197
+  background-image: url(http://localhost:8080/images/background-1b7e447117b8e82d8736096d9a43a057.jpg);
   background-position: center;
   background-size: cover;
 }
