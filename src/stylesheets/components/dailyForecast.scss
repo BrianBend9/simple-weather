@@ -16,7 +16,7 @@
 }
 
 .briefContainer--daily__descHeader {
-  font-size: 16px;
+  font-size: 14px;
   margin: 0px 10px 0px 10px;
 }
 
@@ -32,6 +32,12 @@
 .iconContainer--daily__svg {
   height: 85%;
   width: 100%;
+}
+
+@media all and (max-width: 1100px) {
+  .iconContainer--daily__svg {
+    height: 75%;
+  }
 }
 
 @media all and (max-width: 750px) {
@@ -64,17 +70,21 @@
   }
 
   .briefContainer--daily__dayHeader {
-    font-size: 16px;
+    font-size: 14px;
   }
 
   .briefContainer--daily__descHeader {
-    font-size: 15px;
+    font-size: 12px;
     margin: 0px;
   }
 }
 
-@media all and (max-width: 400px) {
-  .briefContainer--daily__descHeader {
+@media all and (max-width: 700px) and (orientation: landscape) {
+  .briefContainer--daily__dayHeader {
     font-size: 13px;
+  }
+
+  .briefContainer--daily__descHeader {
+    font-size: 11px;
   }
 }

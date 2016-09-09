@@ -6,7 +6,6 @@
   margin: 0px;
   display: flex;
   flex-flow: row nowrap;
-  font-size: 16px;
 }
 
 .tempContainer__reading {
@@ -17,15 +16,6 @@
   width: 50%;
   padding-bottom: 4px;
 }
-
-// .tempContainer__reading--high {
-//
-// }
-
-// .tempContainer__reading--low {
-//   background-color: blue;
-//   opacity: .5;
-// }
 
 .tempContainer__heading {
   margin-bottom: 0px;
@@ -44,10 +34,22 @@
     justify-content: center;
     padding-bottom: 0px;
   }
+
+  .tempContainer__heading {
+    font-size: 14px;
+  }
+
+  .tempContainer__reading p {
+    font-size: 12px;
+  }
 }
 
-@media all and (max-width: 400px) {
+@media all and (max-width: 700px) and (orientation: landscape) {
   .tempContainer__reading {
-    font-size: 13px;
+    font-size: 12px;
+  }
+
+  .tempContainer__reading p {
+    font-size: 11px;
   }
 }

@@ -3,7 +3,7 @@
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
-  align-items: center;
+  align-items: left;
   padding: 10px 10px 0px 0px;
   font-size: 18px;
 }
@@ -39,7 +39,7 @@
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
 }
 
 .tempContainer--current__readingUnit {
@@ -73,16 +73,8 @@
   }
 }
 
-@media all and (max-width: 1100px) {
-
-  .tempContainer--current__reading--large {
-    font-size: 94px;
-  }
-
-  .envContainer--current__reading {
-    font-size: 16px;
-    padding-right: 5px;
-  }
+.envContainer--current__wrapper {
+  padding: 0px;
 }
 
 @media all and (max-width: 975px) {

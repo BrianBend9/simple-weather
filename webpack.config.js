@@ -13,7 +13,7 @@ module.exports = {
 
   output: {
     path: __dirname + '/dist',
-    publicPath: (build) ? 'https://simple-weatherapp.herokuapp.com/dist' : 'http://localhost:8080/',
+    publicPath: (build) ? 'https://simple-weatherapp.herokuapp.com/' : 'http://localhost:8080/',
     filename: (build) ? '[name].bundle.min.js' : '[name].bundle.js'
   },
 

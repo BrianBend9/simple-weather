@@ -6,8 +6,8 @@ import dispatcher from '../dispatchers/dispatcher';
 class WeatherDataStore extends EventEmitter {
   constructor() {
     super();
-    this.currentForecast = [];
-    this.location = '';
+    this.currentForecast = {};
+    this.location = {};
     this.weekForecast = [];
   }
 
@@ -16,12 +16,12 @@ class WeatherDataStore extends EventEmitter {
   }
 
   getQueryData(location) {
-    console.log('getQueryData', arguments);
     getWeatherData(location).then(data => {
       this.currentForecast = data[0];
       this.weekForecast = data[1];
     }).then(data => {
       this.emit('change');
+      console.log('currentForecast', this.currentForecast);
     });
   }
 
@@ -36,11 +36,15 @@ class WeatherDataStore extends EventEmitter {
     ];
   }
 
+  getStoredCurrentForecast() {
+    console.log('getStoredCurrentForecast', this.currentForecast);
+    return this.currentForecast;
+  }
+
   getDayStored(dayQuery) {
     const dataArray = this.weekForecast;
     var result;
 
-    console.log('getDayStored', dataArray);
     for (let i = 0; i < dataArray.length; i++) {
       if (dataArray[i][i + 1]['dayOfWeek'] === dayQuery) {
         result = dataArray[i][i + 1];

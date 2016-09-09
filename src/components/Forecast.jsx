@@ -8,7 +8,6 @@ import DailyForecast from './forecast/DailyForecast';
 import CurrentForecast from './forecast/CurrentForecast';
 import CurrentTemperature from './forecast/CurrentTemperature';
 import WeatherDataStore from '../stores/WeatherDataStore';
-import * as WeatherDataActions from '../actions/WeatherDataActions';
 import { Link } from 'react-router';
 
 export default class Forecast extends React.Component {
@@ -27,9 +26,7 @@ export default class Forecast extends React.Component {
   }
 
   componentWillMount() {
-    const location = this.props.params.location;
-
-    WeatherDataActions.getQueryData(location);
+    this.updateWeatherState();
   }
 
   componentDidMount() {
@@ -44,7 +41,6 @@ export default class Forecast extends React.Component {
     const queryData = WeatherDataStore.getAllStored();
 
     queryData.forEach(dataObject => this.setState(dataObject));
-    console.log('updateWeatherState', this.state);
   }
 
   render() {

@@ -6,11 +6,11 @@ export default class Temperatures extends React.Component {
       <ul className='tempContainer'>
         <li className='tempContainer__reading tempContainer__reading--low'>
           <h4 className='tempContainer__heading'>{'Low'}</h4>
-          {this.props.low + ' °C'}
+          <p>{this.props.low + ' °C'}</p>
         </li>
         <li className='tempContainer__reading tempContainer__reading--high'>
           <h4 className='tempContainer__heading'>{'High'}</h4>
-          {this.props.high + ' °C'}
+          <p>{this.props.high + ' °C'}</p>
         </li>
       </ul>
     );
