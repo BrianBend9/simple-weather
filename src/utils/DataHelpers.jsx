@@ -102,7 +102,7 @@ function weekForecastArray(obj) {
 }
 
 function geocodeLocation(location) {
-  const apikey = 'AIzaSyAwSTCw161Dx-UwIx2KAtYm_UmfTMiFKz4';
+  const apikey = process.env.GEOCODE_APIKEY;
   const apiEndpoint =
   `https://cors-proxysvr.herokuapp.com/https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=${apikey}`;
 
@@ -117,7 +117,7 @@ function geocodeLocation(location) {
 }
 
 function getWeatherData(location) {
-  const apikey = '63f086bc90a0817da47d6fea5205ee6e';
+  const apikey = process.env.WEATHER_APIKEY;
 
   return geocodeLocation(location)
   .then(function(response) {
