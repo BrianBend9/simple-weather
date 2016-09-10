@@ -28817,9 +28817,8 @@
 
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } /* eslint-disable handle-callback-err */
-	/* eslint-disable consistent-return */
-	/* eslint-disable no-unused-vars */
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } /* eslint-disable consistent-return */
+	/* eslint-disable max-len */
 	/* eslint-disable indent */
 
 
@@ -28920,7 +28919,7 @@
 
 	function geocodeLocation(location) {
 	  var apikey = 'AIzaSyAwSTCw161Dx-UwIx2KAtYm_UmfTMiFKz4';
-	  var apiEndpoint = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + location + '&key=' + apikey;
+	  var apiEndpoint = 'https://cors-proxysvr.herokuapp.com:443/https://maps.googleapis.com/maps/api/geocode/json?address=' + location + '&key=' + apikey;
 
 	  return sendHttpRequest(apiEndpoint).then(function (response) {
 	    var location = { location: JSON.parse(response).results[0].formatted_address };
@@ -28936,7 +28935,7 @@
 	  var apikey = '63f086bc90a0817da47d6fea5205ee6e';
 
 	  return geocodeLocation(location).then(function (response) {
-	    var apiEndpoint = 'https://api.forecast.io/forecast/' + apikey + '/' + response.coordinates.lat + ',' + response.coordinates.lng + '?units=ca';
+	    var apiEndpoint = 'https://cors-proxysvr.herokuapp.com:443/https://api.forecast.io/forecast/' + apikey + '/' + response.coordinates.lat + ',' + response.coordinates.lng + '?units=ca';
 
 	    return sendHttpRequest(apiEndpoint);
 	  }).then(function (response) {
